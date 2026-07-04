@@ -12,7 +12,7 @@ Industry hint: ${input.industry || "unknown"}
 Region focus: ${input.region || "global"}
 
 Scraped website content (may be empty):
-${siteData?.ok ? JSON.stringify({ title: siteData.title, description: siteData.description, headings: siteData.headings, text: siteData.bodyText.slice(0, 4000) }) : "No website data available — use your knowledge of the company."}
+${siteData?.ok ? JSON.stringify({ title: siteData.title, description: siteData.description, headings: siteData.headings, text: siteData.bodyText.slice(0, 1500) }) : "No website data available — use your knowledge of the company."}
 
 Return JSON:
 {
@@ -37,7 +37,7 @@ export async function discoverCompetitors(profile, input) {
 Company profile: ${JSON.stringify(profile)}
 Region focus: ${input.region || "global"}
 
-Find 5 direct competitors (same offering, same customers) and 3 indirect competitors (alternative ways customers solve the same problem). Only include real companies you are confident exist. Website domains must be their real primary domains — if unsure of the domain, set it to null.
+Find 3 direct competitors (same offering, same customers) and 2 indirect competitors (alternative ways customers solve the same problem). Only include real companies you are confident exist. Website domains must be their real primary domains — if unsure of the domain, set it to null.
 
 Return JSON:
 {
@@ -56,10 +56,10 @@ export async function extractCompetitorIntel(competitor, siteData, pricingData) 
 Known summary: ${competitor.summary}
 
 Scraped homepage:
-${siteData?.ok ? JSON.stringify({ title: siteData.title, description: siteData.description, headings: siteData.headings, nav: siteData.navLinks, pricingSignals: siteData.pricingSignals, text: siteData.bodyText.slice(0, 3500) }) : "Not available — rely on your knowledge, and mark confidence lower."}
+${siteData?.ok ? JSON.stringify({ title: siteData.title, description: siteData.description, headings: siteData.headings, nav: siteData.navLinks, pricingSignals: siteData.pricingSignals, text: siteData.bodyText.slice(0, 1200) }) : "Not available — rely on your knowledge, and mark confidence lower."}
 
 Scraped pricing page:
-${pricingData?.ok ? JSON.stringify({ headings: pricingData.headings, pricingSignals: pricingData.pricingSignals, text: pricingData.bodyText.slice(0, 3000) }) : "Not available."}
+${pricingData?.ok ? JSON.stringify({ headings: pricingData.headings, pricingSignals: pricingData.pricingSignals, text: pricingData.bodyText.slice(0, 1000) }) : "Not available."}
 
 Return JSON:
 {

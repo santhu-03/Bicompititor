@@ -22,12 +22,13 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 /**
  * Call Groq and return raw text.
  */
-export async function askGroq(prompt, { temperature = 0.4, maxTokens = 4096 } = {}) {
+export async function askGroq(prompt, { temperature = 0.4, maxTokens = 1024 } = {}) {
   if (!process.env.GROQ_API_KEY) throw new Error("GROQ_API_KEY is not configured. Add it to server/.env");
 
   let lastError;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
+      console.log(`Groq request: ${GROQ_MODEL} (attempt ${attempt})`);
       const completion = await groq.chat.completions.create({
         messages: [{ role: "user", content: prompt }],
         model: GROQ_MODEL,
@@ -36,6 +37,7 @@ export async function askGroq(prompt, { temperature = 0.4, maxTokens = 4096 } = 
       });
       const text = completion.choices[0]?.message?.content ?? "";
       if (!text) throw new Error("Groq returned an empty response");
+      console.log("Groq response received");
       return text;
     } catch (err) {
       lastError = err;
@@ -53,12 +55,13 @@ export async function askGroq(prompt, { temperature = 0.4, maxTokens = 4096 } = 
  * Call Groq expecting a JSON object/array back.
  * Uses json_object response_format to guarantee valid JSON output.
  */
-export async function askGroqJSON(prompt, { temperature = 0.4, maxTokens = 4096 } = {}) {
+export async function askGroqJSON(prompt, { temperature = 0.4, maxTokens = 1024 } = {}) {
   if (!process.env.GROQ_API_KEY) throw new Error("GROQ_API_KEY is not configured. Add it to server/.env");
 
   let lastError;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
+      console.log(`Groq request: ${GROQ_MODEL} (attempt ${attempt}, JSON mode)`);
       const completion = await groq.chat.completions.create({
         messages: [{ role: "user", content: prompt }],
         model: GROQ_MODEL,
@@ -68,6 +71,7 @@ export async function askGroqJSON(prompt, { temperature = 0.4, maxTokens = 4096 
       });
       const text = completion.choices[0]?.message?.content ?? "";
       if (!text) throw new Error("Groq returned an empty response");
+      console.log("Groq response received");
       return JSON.parse(text);
     } catch (err) {
       lastError = err;
