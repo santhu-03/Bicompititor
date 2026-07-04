@@ -1,0 +1,19 @@
+{
+  "name": "ai-business-intelligence-agent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI agent that researches a company, analyzes competitors, and generates a business intelligence PDF report.",
+  "scripts": {
+    "setup": "bash setup.sh",
+    "dev": "concurrently -n server,client -c cyan,yellow \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix client",
+    "start": "npm run start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "vite": "^8.1.3"
+  },
+  "dependencies": {
+    "groq-sdk": "^1.3.0"
+  }
+}
