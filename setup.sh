@@ -46,17 +46,17 @@ else
   say "server/.env already exists — leaving it untouched"
 fi
 
-if ! grep -q "^GROQ_API_KEY=.\+" server/.env; then
+if ! grep -q "^GEMINI_API_KEY=.\+" server/.env; then
   echo ""
-  warn "GROQ_API_KEY is empty."
-  read -r -p "  Paste your Groq API key now (or press Enter to add it later): " KEY
+  warn "GEMINI_API_KEY is empty."
+  read -r -p "  Paste your Gemini API key now (or press Enter to add it later): " KEY
   if [ -n "$KEY" ]; then
     tmp=$(mktemp)
-    sed "s|^GROQ_API_KEY=.*|GROQ_API_KEY=${KEY}|" server/.env > "$tmp" && mv "$tmp" server/.env
+    sed "s|^GEMINI_API_KEY=.*|GEMINI_API_KEY=${KEY}|" server/.env > "$tmp" && mv "$tmp" server/.env
     say "API key saved to server/.env"
   else
-    warn "Remember to set GROQ_API_KEY in server/.env before running research."
-    warn "Get a free key: https://console.groq.com/keys"
+    warn "Remember to set GEMINI_API_KEY in server/.env before running research."
+    warn "Get a free key: https://aistudio.google.com/apikey"
   fi
 fi
 
@@ -84,7 +84,7 @@ echo "    1. Create a new project and connect this repo."
 echo "    2. Set root directory to: server/"
 echo "    3. Set start command to:  node src/index.js"
 echo "    4. Add environment variables from server/.env:"
-echo "         GROQ_API_KEY, MONGODB_URI, GROQ_MODEL, NODE_ENV=production"
+echo "         GEMINI_API_KEY, MONGODB_URI, GEMINI_MODEL, NODE_ENV=production"
 echo "         ALLOWED_ORIGINS=https://<your-vercel-app>.vercel.app"
 echo "    5. Deploy and copy the public URL (e.g. https://bi-agent-api.railway.app)"
 echo ""

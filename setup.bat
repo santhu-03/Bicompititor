@@ -40,8 +40,8 @@ echo.
 echo  Setup complete!
 echo.
 echo  ── LOCAL DEVELOPMENT ──────────────────────────────────────────────
-echo  1. Open server\.env and set GROQ_API_KEY
-echo     (free key: https://console.groq.com/keys)
+echo  1. Open server\.env and set GEMINI_API_KEY
+echo     (free key: https://aistudio.google.com/apikey)
 echo  2. Optionally set MONGODB_URI (Atlas) - otherwise in-memory store is used
 echo  3. Start dev servers:   npm run dev
 echo       client  http://localhost:5173
@@ -54,7 +54,7 @@ echo    1. Create a new project and connect this repo
 echo    2. Set root directory to: server/
 echo    3. Set start command to:  node src/index.js
 echo    4. Add environment variables from server\.env:
-echo         GROQ_API_KEY, MONGODB_URI, GROQ_MODEL, NODE_ENV=production
+echo         GEMINI_API_KEY, MONGODB_URI, GEMINI_MODEL, NODE_ENV=production
 echo         ALLOWED_ORIGINS=https://^<your-vercel-app^>.vercel.app
 echo    5. Deploy and copy the public URL
 echo.

@@ -66,7 +66,7 @@ export default function App() {
           </button>
           {health && (
             <div className="font-mono text-[11px] text-fog text-right hidden sm:block">
-              <p>AI: {health.groqConfigured ? <span className="text-teal">connected</span> : <span className="text-danger">no API key</span>}</p>
+              <p>AI: {health.geminiConfigured ? <span className="text-teal">connected</span> : <span className="text-danger">no API key</span>}</p>
               <p>store: {health.database}</p>
             </div>
           )}

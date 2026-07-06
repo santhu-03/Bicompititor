@@ -1,4 +1,4 @@
-import { askGroqJSON } from "./groq.js";
+import { askGeminiJSON } from "./gemini.js";
 
 /**
  * Stage 1 — Company research: profile the target company from its name/site content.
@@ -25,7 +25,7 @@ Return JSON:
   "uniqueSellingPoints": ["USP", ...],
   "overview": "150-word neutral company overview"
 }`;
-  return askGroqJSON(prompt, { temperature: 0.3 });
+  return askGeminiJSON(prompt, { temperature: 0.3 });
 }
 
 /**
@@ -44,7 +44,7 @@ Return JSON:
   "direct": [{ "name": "", "website": "https://... or null", "summary": "one line on what they do", "whyCompetitor": "one line" }],
   "indirect": [{ "name": "", "website": "https://... or null", "summary": "", "whyCompetitor": "" }]
 }`;
-  return askGroqJSON(prompt, { temperature: 0.4 });
+  return askGeminiJSON(prompt, { temperature: 0.4 });
 }
 
 /**
@@ -74,7 +74,7 @@ Return JSON:
   "weaknesses": ["", ""],
   "confidence": "high | medium | low"
 }`;
-  return askGroqJSON(prompt, { temperature: 0.3 });
+  return askGeminiJSON(prompt, { temperature: 0.3 });
 }
 
 /**
@@ -95,7 +95,7 @@ Return JSON:
   "opportunities": ["", "", "", ""],
   "threats": ["", "", "", ""]
 }`;
-  return askGroqJSON(prompt, { temperature: 0.4 });
+  return askGeminiJSON(prompt, { temperature: 0.4 });
 }
 
 /**
@@ -118,5 +118,5 @@ Return JSON:
   ] (4-6 items, ordered by priority),
   "executiveSummary": "200-word summary for management: market position, key competitive dynamics, the single biggest opportunity, and the single biggest risk. Plain prose, no bullets."
 }`;
-  return askGroqJSON(prompt, { temperature: 0.45 });
+  return askGeminiJSON(prompt, { temperature: 0.45 });
 }

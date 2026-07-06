@@ -1,4 +1,19 @@
-const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+// Allowlist prevents arbitrary/expensive models from being injected via env
+const ALLOWED_MODELS = new Set([
+  "gemini-2.5-flash",
+  "gemini-2.5-flash-lite",
+  "gemini-2.5-pro",
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-lite",
+]);
+
+const requestedModel = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const GEMINI_MODEL = ALLOWED_MODELS.has(requestedModel) ? requestedModel : "gemini-2.5-flash";
+
+if (process.env.GEMINI_MODEL && !ALLOWED_MODELS.has(process.env.GEMINI_MODEL)) {
+  console.warn(`⚠ GEMINI_MODEL "${process.env.GEMINI_MODEL}" is not in the allowlist — falling back to gemini-2.5-flash`);
+}
+
 const BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models";
 
 /**

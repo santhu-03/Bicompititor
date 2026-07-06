@@ -30,10 +30,10 @@ export default function InputForm({ onStart, starting, error, health }) {
         compares services and pricing, runs a SWOT, and hands you a PDF — in minutes.
       </p>
 
-      {health && !health.groqConfigured && (
+      {health && !health.geminiConfigured && (
         <div className="mt-6 border border-signal/40 bg-signal/10 rounded-lg p-4 text-sm">
           <span className="font-semibold text-signal">Setup needed:</span>{" "}
-          Add your <code className="font-mono">GROQ_API_KEY</code> to <code className="font-mono">server/.env</code> and restart the server.
+          Add your <code className="font-mono">GEMINI_API_KEY</code> to <code className="font-mono">server/.env</code> and restart the server.
         </div>
       )}
 

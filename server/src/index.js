@@ -89,7 +89,7 @@ app.use((req, _res, next) => {
 app.get("/api/health", (_req, res) => {
   res.json({
     ok: true,
-    groqConfigured: Boolean(process.env.GROQ_API_KEY),
+    geminiConfigured: Boolean(process.env.GEMINI_API_KEY),
     database: process.env.MONGODB_URI ? "mongodb" : "in-memory",
   });
 });
@@ -114,8 +114,8 @@ app.use((err, _req, res, _next) => {
 connectDatabase().then(() => {
   app.listen(PORT, () => {
     console.log(`✔ BI Agent server running at http://localhost:${PORT}`);
-    if (!process.env.GROQ_API_KEY) {
-      console.warn("⚠ GROQ_API_KEY not set — AI analysis will fail. Add it to server/.env");
+    if (!process.env.GEMINI_API_KEY) {
+      console.warn("⚠ GEMINI_API_KEY not set — AI analysis will fail. Add it to server/.env");
     }
   });
 });
