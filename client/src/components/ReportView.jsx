@@ -39,6 +39,10 @@ export default function ReportView({ report, onReset }) {
           <div className="flex flex-wrap gap-2 mt-4">
             {profile.industry && <Tag>{profile.industry}</Tag>}
             {profile.businessModel && <Tag>{profile.businessModel}</Tag>}
+            {profile.companySize && <Tag>{profile.companySize} employees</Tag>}
+            {profile.headquarters && <Tag>{profile.headquarters}</Tag>}
+            {profile.fundingStage && <Tag>{profile.fundingStage}</Tag>}
+            {profile.foundedYear && <Tag>est. {profile.foundedYear}</Tag>}
             <Tag tone="teal">{competitors.length} competitors analyzed</Tag>
           </div>
         </div>
@@ -79,6 +83,14 @@ export default function ReportView({ report, onReset }) {
             </ul>
           </div>
         </div>
+        {profile.recentDevelopments?.length > 0 && (
+          <div className="bg-panel border border-edge rounded-lg p-5 mt-4">
+            <p className="font-mono text-[11px] tracking-wider text-fog">RECENT DEVELOPMENTS</p>
+            <ul className="mt-3 space-y-1.5 text-sm">
+              {profile.recentDevelopments.map((s) => <li key={s}>• {s}</li>)}
+            </ul>
+          </div>
+        )}
       </Section>
 
       {/* Competitors */}
@@ -88,7 +100,10 @@ export default function ReportView({ report, onReset }) {
             <article key={c.name} className="bg-panel border border-edge rounded-lg p-5 flex flex-col">
               <div className="flex items-start justify-between gap-3">
                 <h4 className="font-display font-bold text-lg">{c.name}</h4>
-                <Tag tone={c.type === "direct" ? "signal" : "fog"}>{c.type}</Tag>
+                <div className="flex gap-1.5 flex-wrap justify-end">
+                  <Tag tone={c.type === "direct" ? "signal" : "fog"}>{c.type}</Tag>
+                  {c.intel?.marketPosition && c.intel.marketPosition !== "unknown" && <Tag tone="teal">{c.intel.marketPosition}</Tag>}
+                </div>
               </div>
               {c.website && (
                 <a href={c.website} target="_blank" rel="noreferrer" className="font-mono text-[11px] text-teal hover:underline mt-0.5 break-all">
@@ -100,6 +115,18 @@ export default function ReportView({ report, onReset }) {
                 <p className="text-[13px] text-fog mt-3">
                   <span className="font-mono text-[10px] tracking-wider">SERVICES · </span>
                   {c.intel.services.join(" · ")}
+                </p>
+              )}
+              {c.intel?.differentiators?.length > 0 && (
+                <p className="text-[13px] text-fog mt-2">
+                  <span className="font-mono text-[10px] tracking-wider">DIFFERENTIATORS · </span>
+                  {c.intel.differentiators.join(" · ")}
+                </p>
+              )}
+              {c.intel?.techStackSignals?.length > 0 && (
+                <p className="text-[13px] text-fog mt-2">
+                  <span className="font-mono text-[10px] tracking-wider">TECH SIGNALS · </span>
+                  {c.intel.techStackSignals.join(" · ")}
                 </p>
               )}
               {c.intel?.confidence && (

@@ -57,6 +57,9 @@ export function streamReportPdf(report, res) {
     [
       profile.industry ? `Industry: ${profile.industry}` : null,
       profile.businessModel ? `Model: ${profile.businessModel}` : null,
+      profile.headquarters ? `HQ: ${profile.headquarters}` : null,
+      profile.companySize ? `Size: ${profile.companySize}` : null,
+      profile.fundingStage ? `Funding: ${profile.fundingStage}` : null,
       `Generated: ${new Date(report.createdAt || Date.now()).toDateString()}`,
     ]
       .filter(Boolean)
@@ -84,19 +87,30 @@ export function streamReportPdf(report, res) {
     doc.moveDown(0.2);
     bullets(profile.uniqueSellingPoints);
   }
+  if (profile.recentDevelopments?.length) {
+    doc.moveDown(0.4);
+    doc.font("Helvetica-Bold").fontSize(10).text("Recent developments");
+    doc.moveDown(0.2);
+    bullets(profile.recentDevelopments);
+  }
 
   // --- Competitor landscape ----------------------------------------------------
   sectionTitle("Competitor Landscape");
   for (const competitor of competitors) {
     ensureSpace(120);
     doc.font("Helvetica-Bold").fontSize(11.5).fillColor(INK).text(competitor.name, { continued: true });
-    doc.font("Helvetica").fontSize(8.5).fillColor(competitor.type === "direct" ? ACCENT : AMBER).text(`   ${competitor.type?.toUpperCase()}`);
+    const typeLabel = `${competitor.type?.toUpperCase() || ""}${competitor.intel?.marketPosition && competitor.intel.marketPosition !== "unknown" ? ` · ${competitor.intel.marketPosition.toUpperCase()}` : ""}`;
+    doc.font("Helvetica").fontSize(8.5).fillColor(competitor.type === "direct" ? ACCENT : AMBER).text(`   ${typeLabel}`);
     if (competitor.website) doc.fillColor(MUTED).fontSize(8.5).text(competitor.website);
     doc.moveDown(0.2);
     doc.fillColor(INK).font("Helvetica").fontSize(10).text(competitor.summary || "", { lineGap: 3 });
     if (competitor.intel?.services?.length) {
       doc.moveDown(0.2);
       doc.fillColor(MUTED).fontSize(9).text(`Services: ${competitor.intel.services.join(" · ")}`, { lineGap: 3 });
+    }
+    if (competitor.intel?.differentiators?.length) {
+      doc.moveDown(0.2);
+      doc.fillColor(MUTED).fontSize(9).text(`Differentiators: ${competitor.intel.differentiators.join(" · ")}`, { lineGap: 3 });
     }
     doc.moveDown(0.7);
   }

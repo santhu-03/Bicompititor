@@ -26,8 +26,8 @@ export default function InputForm({ onStart, starting, error, health }) {
         Open a dossier on any company.
       </h2>
       <p className="text-fog mt-4 leading-relaxed">
-        The agent profiles the company, discovers direct and indirect competitors, scrapes their sites,
-        compares services and pricing, runs a SWOT, and hands you a PDF — in minutes.
+        The agent profiles the company, discovers 8-10 direct and indirect competitors, scrapes their sites,
+        compares services, pricing, and market position, runs a deep SWOT, and hands you a PDF — in minutes.
       </p>
 
       {health && !health.geminiConfigured && (
@@ -70,7 +70,7 @@ export default function InputForm({ onStart, starting, error, health }) {
         >
           {starting ? "Opening dossier…" : "Start research"}
         </button>
-        <p className="font-mono text-[11px] text-fog">Typical run: 2–4 minutes · 6 research stages</p>
+        <p className="font-mono text-[11px] text-fog">Typical run: 4–7 minutes · 6 research stages · 8-10 competitors</p>
       </div>
     </section>
   );
